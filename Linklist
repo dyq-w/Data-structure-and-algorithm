@@ -1,0 +1,113 @@
+public class linkList {
+    public static void main(String[] args){
+        MyLinkList IntLink = new MyLinkList<Integer>();
+        IntLink.initlist();
+        IntLink.add(25);
+        IntLink.add(98);
+        IntLink.add(19);
+        IntLink.add(65);
+        IntLink.add(87);
+        System.out.println(IntLink.get(8));
+        System.out.println(IntLink.isEmpty());
+        System.out.println(IntLink.length());
+        IntLink.print();
+        }
+}
+class Node<T>{
+    public T data;
+    public Node<T> next;
+    public Node(T data,Node<T> next){
+        this.data=data;
+        this.next=next;
+    }
+}
+class MyLinkList<T>{
+    //首元节点
+    private  Node<T> first;
+
+    //头指针
+    private Node<T> head;
+
+    //链表长度
+    int thesize;
+
+    //初始化链表
+    public boolean initlist(){
+        thesize = 0;
+        first = new Node<T>(null,null);
+        head = new Node<T>(null,first);
+        return true;
+    }
+
+    //判断链表是否为空
+    public boolean isEmpty(){
+        return thesize == 0;
+    }
+
+    //获取节点
+    public Node<T> getNode(int i){
+        Node<T> renode=head;
+        for(int j=-2;j<i;j++){
+            renode=renode.next;
+        }
+        return renode;
+    }
+
+    //在末尾添加元素
+    public void add(T a){
+        Node<T> renode=new Node<>(a,null);
+        getNode(thesize-1).next=renode;
+        thesize++;
+    }
+
+    //删除i位置的节点，并返回删除的数据
+    public T remove(int i){
+        if(i==thesize-1){
+            T a=getNode(thesize).data;
+            getNode(thesize-2).next=null;
+            thesize--;
+            return a;
+        }
+        Node<T> prev=getNode(i-1);
+        T a=prev.next.data;
+        prev.next=prev.next.next;
+        thesize--;
+        return a;
+    }
+
+    //在i位置插入新节点
+    public void insert(int i,T a){
+        Node<T> prev=getNode(i-1);
+        Node<T> renode=new Node<>(a,prev.next);
+        prev.next=renode;
+        thesize++;
+    }
+
+    //获取i位置节点的数据
+    public T get(int i){
+        return getNode(i).data;
+    }
+
+    //为i位置的元素重新赋值
+    public void set(int i,T a){
+        getNode(i).data=a;
+    }
+
+    //获取链表的长度
+    public int length(){
+        return thesize;
+    }
+
+    //清空链表
+    public void clear(){
+        initlist();
+    }
+
+    //打印链表
+    public void print(){
+        for(int i=0;i<thesize;i++){
+            System.out.print(getNode(i).data+"\t");
+        }
+    }
+
+}
