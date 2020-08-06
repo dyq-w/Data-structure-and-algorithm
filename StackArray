@@ -1,0 +1,71 @@
+public class StackArray {
+    public static void main(String[] args) {
+        StackA<Integer> stack = new StackA<>(10);
+        stack.push(9);
+        stack.push(5);
+        stack.push(7);
+        stack.push(2);
+        stack.push(3);
+        System.out.println(stack.isempty());
+        System.out.println(stack.peek());
+        System.out.println(stack.search(5));
+        System.out.println(stack.pop());
+    }
+}
+class StackA<T>{
+    private Object[] data = null;
+    private int maxsize = 0;
+    private int top = -1;
+    public StackA(){}
+    public StackA(int i){
+        if(i>=0){
+            this.maxsize = i;
+            data = new Object[i];
+            top = -1;
+        }else{
+            throw new RuntimeException("初始化大小不能小于0");
+        }
+    }
+
+    //进栈
+    public boolean push(T e){
+        if(top == maxsize-1){
+            throw new RuntimeException("栈已满，无法将元素入栈");
+        }else{
+            data[++top] = e;
+            return true;
+        }
+    }
+
+    //查看栈顶元素但不移除
+    public T peek(){
+        if(top == -1){
+            throw new RuntimeException("栈为空！");
+        }else{
+            return (T)data[top];
+        }
+    }
+
+    //弹出栈顶元素
+    public T pop(){
+        if(top == -1){
+            throw new RuntimeException("栈为空！");
+        }else{
+            return (T)data[top--];
+        }
+    }
+
+    //判断是否为空栈
+    public boolean isempty(){
+        return top==-1 ? true : false;
+    }
+
+    //返回对象在栈中的位置
+    public int search(T e){
+        for(int i=0;i<top;i++) {
+            if (data[i] == e)
+                return ++i;
+        }
+        return -1;
+    }
+}
