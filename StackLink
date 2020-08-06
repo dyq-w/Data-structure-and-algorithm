@@ -1,0 +1,69 @@
+public class StackLink {
+    public static void main(String[] args){
+        StackL<Integer> stack= new StackL<>();
+        System.out.println(stack.isempty());
+        stack.push(9);
+        stack.push(5);
+        stack.push(8);
+        System.out.println(stack.peek());
+        System.out.println(stack.length());
+        System.out.println(stack.pop());
+    }
+}
+class StackL<T>{
+
+    //节点
+    private class Node{
+        T e;
+        Node next;
+        public Node(){}
+        public Node(T e,Node next){
+            this.e = e;
+            this.next = next;
+        }
+    }
+
+    private Node top = null; //栈顶元素
+    private int size; //当前栈的大小
+
+
+    //入栈
+    public boolean push(T e){
+        top = new Node(e,top);
+        size++;
+        return true;
+    }
+
+    //判断是否为空栈
+    public boolean isempty(){
+        return size == 0;
+    }
+
+    //查看元素但不删除
+    public T peek(){
+        if(isempty()){
+            throw new RuntimeException("空栈异常！");
+        }else{
+            return top.e;
+        }
+    }
+
+    //出栈
+    public T pop(){
+        if(isempty()){
+            throw new RuntimeException("空栈异常！");
+        }else{
+            Node value = top;
+            top = top.next;
+            value.next=null;
+            size--;
+            return value.e;
+        }
+    }
+
+    //当前栈的大小
+    public int length(){
+        return size;
+    }
+
+}
