@@ -1,0 +1,48 @@
+public class QueueArray {
+    public static void main(String[] args){
+        Queue mqu = new Queue(6);
+        mqu.in(65);
+        mqu.in(83);
+        mqu.in(29);
+        mqu.in(25);
+        System.out.println(mqu.amount());
+        System.out.println(mqu.out());
+        System.out.println(mqu.amount());
+    }
+}
+
+class Queue{
+    private Object[] arr;
+    private int i = 0;
+    public Queue(){
+        arr = new Object[10];
+    }
+    public Queue(int a){
+        arr = new Object[a];
+    }
+
+    //入列
+    public void in(Object s){
+        if(i<arr.length) {
+            arr[i++] = s;
+        }else{
+            System.out.println("队列已满！");
+        }
+    }
+
+    //出列
+    public Object out(){
+      Object temp = arr[0];
+      for(int j=0;j<i;j++){
+          arr[j]=arr[j+1];
+      }
+      i--;
+      return temp;
+    }
+
+    // 队列中元素的个数
+    public int amount(){
+        return i;
+    }
+
+}
