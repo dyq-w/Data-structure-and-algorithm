@@ -1,0 +1,77 @@
+public class CirQueue {
+    public static void main(String[] args){
+        SqQueue<Integer> msq = new SqQueue<>(9);
+        msq.push(98);
+        msq.push(18);
+        msq.push(73);
+        msq.push(56);
+        msq.push(65);
+        System.out.println(msq.pop());
+        System.out.println(msq.getFront());
+        System.out.println(msq.getRear());
+    }
+}
+class SqQueue<T>{
+    private T[] datas;
+    private int maxSize;
+    private int front;    //头指针
+    private int rear;     //尾指针
+
+
+    //初试化队列
+    public SqQueue(int maxSize){
+        if(maxSize<1){
+            maxSize = 1;
+        }
+        this.maxSize = maxSize;
+        this.front = 0;
+        this.rear = 0;
+        this.datas = (T[]) new Object[this.maxSize];
+    }
+
+    //两个状态：队空&队满
+    public boolean isNull(){
+        if(this.front == this.rear){
+            return true;
+        }else{
+            return false;
+        }
+    }
+    public boolean isFull(){
+        if((rear+1)%this.maxSize == this.rear){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    //两个操作：进队&出队
+    public boolean push(T data){
+        if(isFull()){
+            throw new RuntimeException("队列已满无法进队");
+        }else{
+            datas[rear] = data;
+            rear = (rear+1)%maxSize;
+            return true;
+        }
+    }
+
+    public T pop(){
+        if(isNull())
+            throw new RuntimeException("队列为空，无法出队");
+        else{
+            T popData = datas[front];
+            front = (front+1)%this.maxSize;
+            return popData;
+        }
+    }
+
+    public int getFront(){
+        return front;
+    }
+
+    public int getRear(){
+        return rear;
+    }
+
+}
